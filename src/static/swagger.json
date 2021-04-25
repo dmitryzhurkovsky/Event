@@ -1,0 +1,135 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "version": "1.0.0",
+    "title": "event_api",
+    "contact": {
+      "name": "Dmitry",
+      "email": "dmitryzhurkovsky@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "paths": {
+    "/events": {
+      "get": {
+        "tags": [
+          "Events request"
+        ],
+        "summary": "Returns all available films in the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/eventsResponse"
+            }
+          }
+        }
+      }
+    },
+    "/events/{id}": {
+      "get": {
+        "tags": [
+          "Event Request"
+        ],
+        "summary": "Get event with given id.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Event Request id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/event"
+            }
+          },
+          "400": {
+            "description": "Failed. Wrong data."
+          },
+          "404": {
+            "description": "Failed. Film was not found."
+          }
+        }
+      }
+    }
+  },
+   "components": {
+    "schemas": {
+      "id": {
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "events": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "format": "string"
+          },
+          "description": {
+            "type": "string",
+            "format": "string"
+          },
+          "distributed_by": {
+            "type": "string",
+            "format": "string"
+          },
+          "max_limit_members": {
+            "type": "number"
+          },
+          "length": {
+            "type": "number"
+          }
+        }
+      },
+      "event": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "format": "string"
+          },
+          "description": {
+            "type": "string",
+            "format": "string"
+          },
+          "distributed_by": {
+            "type": "string",
+            "format": "string"
+          },
+          "max_limit_members": {
+            "type": "number"
+          },
+          "length": {
+            "type": "number"
+          }
+        }
+      },
+      "eventsResponse": {
+        "type": "object",
+        "properties": {
+          "bookRequest": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/event"
+            }
+          }
+        }
+      }
+    }
+  }
+}
